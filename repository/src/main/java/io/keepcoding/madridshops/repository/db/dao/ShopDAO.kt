@@ -35,7 +35,7 @@ class ShopDAO
         content.put(DBConstants.KEY_SHOP_DESCRIPTION, shopEntity.description)
         content.put(DBConstants.KEY_SHOP_LATITUDE, shopEntity.latitude)
         content.put(DBConstants.KEY_SHOP_LONGITUDE, shopEntity.longitude)
-        content.put(DBConstants.KEY_SHOP_IMAGE_URL, shopEntity.image)
+        content.put(DBConstants.KEY_SHOP_IMAGE_URL, shopEntity.img)
         content.put(DBConstants.KEY_SHOP_LOGO_IMAGE_URL, shopEntity.logo)
         content.put(DBConstants.KEY_SHOP_ADDRESS, shopEntity.address)
         content.put(DBConstants.KEY_SHOP_OPENING_HOURS, shopEntity.openingHours)
@@ -61,7 +61,7 @@ class ShopDAO
         return dbReadWriteConnection.delete(
                 DBConstants.TABLE_SHOP,
                 null,
-                null).toLong() > 0
+                null).toLong() >= 0
     }
 
 
@@ -117,8 +117,8 @@ class ShopDAO
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_DESCRIPTION)),
-                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
-                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_IMAGE_URL)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LOGO_IMAGE_URL)),
 

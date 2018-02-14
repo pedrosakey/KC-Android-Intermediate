@@ -1,14 +1,18 @@
 package io.keepcoding.madridshops.repository.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ShopEntity(
-       val id: Long,
-       val databaseId: Long,
-       val name: String,
-       val description: String,
-       val latitude: Float,
-       val longitude: Float,
-       val image: String,
-       val logo: String,
-       val openingHours: String,
-       val address: String
+        val id: Long,
+        val databaseId: Long,
+        val name: String,
+        @JsonProperty("description_en") val description: String,
+        @JsonProperty("gps_lat") val latitude: String,
+        @JsonProperty("gps_lon") val longitude: String,
+        val img: String,
+        @JsonProperty("logo_img") val logo: String,
+        @JsonProperty("opening_hours_en")val openingHours: String,
+        val address: String
 )

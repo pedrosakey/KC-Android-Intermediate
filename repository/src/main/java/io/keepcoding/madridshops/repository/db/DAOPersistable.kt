@@ -2,13 +2,13 @@ package io.keepcoding.madridshops.repository.db
 
 import android.database.Cursor
 
-interface DAOReadOperation<T> {
+internal interface DAOReadOperation<T> {
     fun query(id: Long): T
     fun query(): List<T>
     fun queryCursor(id: Long): Cursor
 }
 
-interface DAOWriteOperations<T> {
+internal interface DAOWriteOperations<T> {
 
     fun insert(element: T) : Long
     fun update(id: Long, element: T) : Long
@@ -23,4 +23,4 @@ interface DAOWriteOperations<T> {
     fun delete(id: Long): Long
     fun deleteAll() : Boolean
 }
-interface DAOPersistable<T>: DAOReadOperation<T>, DAOWriteOperations<T>
+internal interface DAOPersistable<T>: DAOReadOperation<T>, DAOWriteOperations<T>
