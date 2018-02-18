@@ -26,11 +26,19 @@ class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
     private fun entityMapper(list: List<ShopEntity>): Shops {
         val tempList = ArrayList<Shop>()
         list.forEach {
-            val shop = Shop(it.id.toInt(),it.name, it.address)
+            val shop = Shop(it.id.toInt(),it.name, it.address, saveSafeCoordinate(it.latitude),saveSafeCoordinate(it.longitude))
             tempList.add(shop)
         }
 
         val shops = Shops(tempList)
         return shops
     }
+}
+
+private fun saveSafeCoordinate( ramdomCoordinate : String) : String{
+    // quitar espacios
+    var a = ramdomCoordinate.trim()
+    var b = a.substringBefore(',',a)
+    return b
+
 }

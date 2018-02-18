@@ -2,11 +2,18 @@ package io.keepcoding.madridshops.domain.model
 
 import java.util.*
 
-data class Shop(val id: Int, val name: String, val address: String) {
+
+data class Shop(val id: Int, val name: String, val address: String, val latitude: String, val longitude: String) {
     init {
         Shops(ArrayList<Shop>())
     }
+
+    override fun toString(): String {
+        return name
+    }
+
 }
+
 
 class Shops(val shops: MutableList<Shop>) : Aggregate<Shop>{
     override fun count(): Int {
