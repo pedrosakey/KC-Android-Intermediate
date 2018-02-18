@@ -10,15 +10,12 @@ import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllShopsIntera
 import io.keepcoding.madridshops.domain.model.Shops
 
 
-typealias SuccessClosure = (shops: Shops) -> Unit
-
 class MadridShopsApp : MultiDexApplication () {
     override fun onCreate() {
         super.onCreate()
 
         //init code application wide
-
-        Log.d("Appio", "onCreate")
+        Log.d("run", "Arrancamos aplicación MultiDex")
 
         val allShopsInteractor = GetAllShopsInteractorImpl(this)
         allShopsInteractor.execute(

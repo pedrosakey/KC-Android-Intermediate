@@ -20,7 +20,7 @@
         android:layout_weight="1"
         />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/activity_main_list_fragment"
         android:name="io.keepcoding.madridshops.fragment.ListFragment"
         android:layout_width="match_parent"

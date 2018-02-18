@@ -61,7 +61,6 @@ public class RepositoryImpl(context: Context) : Repository {
 
         })
 
-
         // store result in cache
     }
 
