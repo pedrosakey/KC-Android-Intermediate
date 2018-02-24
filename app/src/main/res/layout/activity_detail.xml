@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.DetailActivity"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:id="@+id/activity_detail_map_fragment"
+        android:name="io.keepcoding.madridshops.fragment.GMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <LinearLayout
+        android:id="@+id/activity_detail_description_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/activity_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            tools:text="HUGO BOSS"
+            android:textSize="22dp"
+            android:textAlignment="center"
+            android:padding="5dp"
+            />
+        <TextView
+            android:id="@+id/activity_detail_timetable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            tools:text = " Monday to Saturday"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/activity_detail_name_street"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            tools:text="Puerta del Sol"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:padding="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_detail_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:textSize="16dp"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien mauris, gravida in purus vitae, sollicitudin commodo justo. In pellentesque malesuada ornare. Fusce odio massa, ullamcorper sit amet congue eu, faucibus vel orci. Integer a tempus neque. Donec suscipit, sem quis varius lacinia, augue elit posuere nibh, vitae pharetra sem nisi ut eros. Etiam vitae tempor leo, ac pulvinar arcu. Etiam nibh dui, fringilla eu interdum vel, blandit id risus. Pellentesque sapien erat, rhoncus ac lorem non, convallis rhoncus ipsum. Nunc tincidunt bibendum leo eget sollicitudin.
+
+Pellentesque tempor in velit condimentum mollis. Curabitur vel erat mollis ligula viverra imperdiet ac a velit. Praesent scelerisque egestas tincidunt. Etiam eleifend velit vel est scelerisque, eu cursus purus dapibus. Fusce ullamcorper neque et magna consequat, sed tempor est lobortis. In a diam at risus egestas ultrices. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce libero odio, semper nec elit facilisis, rhoncus pulvinar lectus. Duis consectetur aliquet arcu, vel sollicitudin nibh pretium in. Pellentesque accumsan massa vitae ultricies interdum. Quisque commodo tellus a urna rhoncus mattis. Vestibulum feugiat neque sem, at dignissim mi posuere in. Vestibulum gravida tincidunt dictum. Nullam molestie augue orci, vitae aliquam urna laoreet a." />
+
+    </LinearLayout>
+
+
+</LinearLayout>

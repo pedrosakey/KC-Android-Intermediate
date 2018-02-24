@@ -26,7 +26,13 @@ class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
     private fun entityMapper(list: List<ShopEntity>): Shops {
         val tempList = ArrayList<Shop>()
         list.forEach {
-            val shop = Shop(it.id.toInt(),it.name, it.address, saveSafeCoordinate(it.latitude),saveSafeCoordinate(it.longitude))
+            val shop = Shop(it.id.toInt(),
+                            it.name,
+                            it.address,
+                            saveSafeCoordinate(it.latitude),
+                            saveSafeCoordinate(it.longitude),
+                            it.openingHours,
+                            it.description)
             tempList.add(shop)
         }
 

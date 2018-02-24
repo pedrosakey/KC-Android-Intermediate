@@ -11,12 +11,11 @@
     android:orientation="vertical"
     >
 
-    <fragment
+    <FrameLayout
         android:id="@+id/activity_main_map_fragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:name="io.keepcoding.madridshops.fragment.GMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:layout_weight="1"
         />
 

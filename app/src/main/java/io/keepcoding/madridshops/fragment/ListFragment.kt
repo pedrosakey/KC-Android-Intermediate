@@ -1,6 +1,8 @@
 package io.keepcoding.madridshops.fragment
 
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +18,8 @@ import io.keepcoding.madridshops.domain.model.Shops
 class ListFragment <T> : Fragment() {
 
     lateinit var list : Array<T>
+    private var onItemSelectedListener: OnItemSelectedListener? = null
+
 
     companion object {
        fun <T> newInstance() : ListFragment<T> {
@@ -37,6 +41,12 @@ class ListFragment <T> : Fragment() {
             )
             list.adapter = adapter
 
+            // Click en un item
+            list.setOnItemClickListener { _, _, position, _ ->
+                // Aviso al listener
+                onItemSelectedListener?.onItemSelected(position)
+            }
+
         }
 
         return root
@@ -44,6 +54,33 @@ class ListFragment <T> : Fragment() {
 
     fun addList(list: Array<T>) {
         this.list = list
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        commonAttach(context)
+    }
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        commonAttach(activity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onItemSelectedListener = null
+    }
+
+    fun commonAttach(listener: Any?) {
+        if (listener is OnItemSelectedListener) {
+            onItemSelectedListener = listener
+        }
+    }
+
+
+    interface OnItemSelectedListener {
+        fun onItemSelected(position: Int)
     }
 
 }

@@ -1,9 +1,18 @@
 package io.keepcoding.madridshops.domain.model
 
 import java.util.*
+import java.io.Serializable
 
 
-data class Shop(val id: Int, val name: String, val address: String, val latitude: String, val longitude: String) {
+data class Shop(val id: Int,
+                val name: String,
+                val address: String,
+                val latitude: String,
+                val longitude: String,
+                val timaTable: String,
+                val description: String
+): Serializable {
+
     init {
         Shops(ArrayList<Shop>())
     }
@@ -15,7 +24,7 @@ data class Shop(val id: Int, val name: String, val address: String, val latitude
 }
 
 
-class Shops(val shops: MutableList<Shop>) : Aggregate<Shop>{
+class Shops(val shops: MutableList<Shop>) : Aggregate<Shop> , Serializable{
     override fun count(): Int {
         return shops.size
     }

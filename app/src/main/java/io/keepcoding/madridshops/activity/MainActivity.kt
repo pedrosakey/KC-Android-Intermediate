@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.google.android.gms.maps.SupportMapFragment
 import io.keepcoding.madridshops.R
 import io.keepcoding.madridshops.domain.interactor.ErrorCompletion
 import io.keepcoding.madridshops.domain.interactor.SuccessCompletion
@@ -24,12 +23,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.SupportMapFragment
+import io.keepcoding.madridshops.fragment.GMapFragment
 
 
+class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
 
 
-
-class MainActivity : AppCompatActivity() {
+    lateinit var shopsDowloaded: Shops
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,16 @@ class MainActivity : AppCompatActivity() {
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops>{
             override fun successCompletion(shops: Shops) {
                 // Initilize Maps
-                initializeMap(shops)
+                //initializeMap(shops)
+                shopsDowloaded = shops
+                if(supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) == null) {
+                    val fragment  = GMapFragment.newInstance(shops)
+                    supportFragmentManager
+                            .beginTransaction()
+                            .add(R.id.activity_main_map_fragment, fragment)
+                            .commit()
+
+                }
 
                //Cargamos el framento
                 //Comprobamos que no está cargado en la jerarquia
@@ -72,35 +82,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initializeMap(shops: Shops) {
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) as SupportMapFragment
-        mapFragment.getMapAsync({
-            val gmap = it
-            // Centrar mapa
-            centerMapInPosition(it, 40.4146500, -3.7004000
-            )
-
-            // Un p
-            // Pintar direccion
-
-            shops.shops.forEach {
-                if (it.latitude != "" && it.longitude != ""){
-                gmap.addMarker(MarkerOptions()
-                        .position(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
-                        .title("Hello world"))
-            }
-
-            }
-        })
-    }
-
-
-
-    fun centerMapInPosition(googleMap: GoogleMap, latitude: Double, longitude: Double) {
-        val cameraPosition = CameraPosition.Builder().target(
-                LatLng(latitude, longitude)).zoom(12f).build()
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -116,5 +97,11 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+
+    }
+
+    override fun onItemSelected(position: Int) {
+        Log.d("lashop", "paso la shop: " + shopsDowloaded.get(position).toString())
+        startActivity(DetailActivity.intent(this, shopsDowloaded.get(position)))
     }
 }
