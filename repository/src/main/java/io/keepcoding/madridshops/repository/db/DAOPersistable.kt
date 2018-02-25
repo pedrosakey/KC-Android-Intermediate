@@ -1,11 +1,14 @@
 package io.keepcoding.madridshops.repository.db
 
 import android.database.Cursor
+import io.keepcoding.madridshops.repository.model.ElementType
+import io.keepcoding.madridshops.repository.model.ShopEntity
 
 internal interface DAOReadOperation<T> {
     fun query(id: Long): T
     fun query(): List<T>
     fun queryCursor(id: Long): Cursor
+    fun query(type: Int): List<T>
 }
 
 internal interface DAOWriteOperations<T> {

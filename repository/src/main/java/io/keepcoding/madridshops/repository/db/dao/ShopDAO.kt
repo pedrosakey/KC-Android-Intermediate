@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import io.keepcoding.madridshops.repository.db.DAOPersistable
 import io.keepcoding.madridshops.repository.db.DBConstants
 import io.keepcoding.madridshops.repository.db.DBHelper
+import io.keepcoding.madridshops.repository.model.ElementType
 import io.keepcoding.madridshops.repository.model.ShopEntity
 
 
@@ -21,7 +22,7 @@ class ShopDAO
     override fun insert(element: ShopEntity): Long {
         var id: Long = 0
 
-        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null, contentValues((element)))
+        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null, contentValues(element))
 
         return id
 
@@ -32,6 +33,7 @@ class ShopDAO
 
         content.put(DBConstants.KEY_SHOP_ID_JSON, shopEntity.id)
         content.put(DBConstants.KEY_SHOP_NAME, shopEntity.name)
+        content.put(DBConstants.KEY_ELEMENT_TYPE, shopEntity.type)
         content.put(DBConstants.KEY_SHOP_DESCRIPTION, shopEntity.description)
         content.put(DBConstants.KEY_SHOP_LATITUDE, shopEntity.latitude)
         content.put(DBConstants.KEY_SHOP_LONGITUDE, shopEntity.longitude)
@@ -87,6 +89,27 @@ class ShopDAO
     }
 
 
+    override fun query(type: Int): List<ShopEntity> {
+        val queryResult = ArrayList<ShopEntity>()
+
+
+        val cursor = dbReadOnlyConnection.query(
+                DBConstants.TABLE_SHOP,
+                DBConstants.ALL_COLUMNS,
+                DBConstants.KEY_ELEMENT_TYPE+"="+type,
+                null,
+                "",
+                "",
+                DBConstants.KEY_SHOP_DATABASE_ID)
+
+        while (cursor.moveToNext()) {
+            val se = entityFromCursor(cursor)
+            queryResult.add(se!!)
+        }
+
+        return queryResult
+    }
+
     override fun query(): List<ShopEntity> {
         val queryResult = ArrayList<ShopEntity>()
 
@@ -107,12 +130,15 @@ class ShopDAO
         return queryResult
     }
 
+
+
     fun entityFromCursor(cursor: Cursor) : ShopEntity? {
         if(cursor.isAfterLast || cursor.isBeforeFirst) {
             return null
         }
 
         return ShopEntity(
+                cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_ELEMENT_TYPE)),
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_ID_JSON)),
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),

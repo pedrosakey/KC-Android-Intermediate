@@ -6,6 +6,7 @@ internal object DBConstants {
     // Table field constants
     val KEY_SHOP_DATABASE_ID = "_id"
     val KEY_SHOP_ID_JSON = "ID_JSON"
+    val KEY_ELEMENT_TYPE = "ELEMENT_TYPE"
     val KEY_SHOP_NAME = "NAME"
     val KEY_SHOP_IMAGE_URL = "IMAGE_URL"
     val KEY_SHOP_LOGO_IMAGE_URL = "LOGO_IMAGE_URL"
@@ -20,6 +21,7 @@ internal object DBConstants {
 
     val ALL_COLUMNS = arrayOf(KEY_SHOP_DATABASE_ID,
             KEY_SHOP_ID_JSON,
+            KEY_ELEMENT_TYPE,
             KEY_SHOP_NAME,
             KEY_SHOP_IMAGE_URL,
             KEY_SHOP_LOGO_IMAGE_URL,
@@ -35,6 +37,7 @@ internal object DBConstants {
                     + "( "
                     + KEY_SHOP_DATABASE_ID + " integer primary key autoincrement, "
                     + KEY_SHOP_ID_JSON + " integer, "
+                    + KEY_ELEMENT_TYPE + " integer, "
                     + KEY_SHOP_NAME + " text not null,"
                     + KEY_SHOP_IMAGE_URL + " text, "
                     + KEY_SHOP_LOGO_IMAGE_URL + " text, "

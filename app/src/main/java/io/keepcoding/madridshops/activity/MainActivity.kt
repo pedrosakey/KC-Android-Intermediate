@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.SupportMapFragment
+import io.keepcoding.madridshops.domain.interactor.deleteallshops.DeleteAllShopsImpl
 import io.keepcoding.madridshops.fragment.GMapFragment
 
 
@@ -37,17 +38,18 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
-        initializeActivity()
+            Log.d("getshops", "success deleteAllShops")
+            initializeActivity()
 
     }
 
     private fun initializeActivity() {
-
+        Log.d("getshops", "APP - Inicializamos... MainActivity")
         val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops>{
             override fun successCompletion(shops: Shops) {
                 // Initilize Maps
+             Log.d("getshops", "APP - SUCCES... Tiendas descargadas")
                 //initializeMap(shops)
                 shopsDowloaded = shops
                 if(supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) == null) {
@@ -75,6 +77,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
 
         }, object: ErrorCompletion {
             override fun errorCompletion(errorMessage: String) {
+             Log.d("getshops", "APP - ERROR... Tiendas no descargadas")
                 Toast.makeText(baseContext,"Error,", Toast.LENGTH_LONG).show()
             }
 

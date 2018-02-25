@@ -17,7 +17,6 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ShopDAOTests {
 
-
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getTargetContext()
     val dbhelper = build(appContext, "mydb.sqlite",1)
@@ -27,9 +26,8 @@ class ShopDAOTests {
     fun given_valid_shopentity_it_gets_inserted_correctly() {
 
 
-
         val shop = ShopEntity(1,1,"MyShop","",
-                1.0f,2.0f,"","","","")
+                "1","2","","","","")
 
 
 
@@ -41,31 +39,28 @@ class ShopDAOTests {
 
     }
 
-    //TODO: convert into a valid test
+    @Test
+    @Throws(Exception::class)
+    private fun is_ok_create_empty_db_helper_and_insert_two_shops(){
 
-    private fun test(){
-
-        // NEVER DO THIS
-        // HORROR !!!!!
         val dbhelper = build(appContext, "mydb.sqlite",1)
-
         val shopEntityDao = ShopDAO(dbhelper)
 
-        val deletedAll = shopEntityDao.deleteAll()
+        shopEntityDao.deleteAll()
 
         val shop = ShopEntity(1,1,"MyShop 1","desc 1",
-                1.0f,2.0f,"","","","")
+                "","","","","","")
 
         val shop2 = ShopEntity(2,1,"MyShop 2","desc 2",
-                1.0f,2.0f,"","","","")
+                "","","","","","")
 
 
-        val id = shopEntityDao.insert(shop)
-        val id2 = shopEntityDao.insert(shop2)
+         shopEntityDao.insert(shop)
+         shopEntityDao.insert(shop2)
 
-        shopEntityDao.query().forEach {
-            Log.d("Shop", it.name)
-        }
+        val shops = shopEntityDao.query()
+        assertEquals(shops[0].name, shop.name)
+        assertEquals(shops[0].name, shop.name)
 
     }
 }

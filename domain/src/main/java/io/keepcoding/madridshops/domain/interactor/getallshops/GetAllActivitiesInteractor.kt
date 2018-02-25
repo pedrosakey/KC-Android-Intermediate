@@ -11,14 +11,13 @@ import io.keepcoding.madridshops.repository.RepositoryImpl
 import io.keepcoding.madridshops.repository.model.ShopEntity
 import java.lang.ref.WeakReference
 
-class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
-        private val weakContext = WeakReference<Context>(context)
-        private val repository: Repository = RepositoryImpl(weakContext.get() !!)
+class GetAllShopsActivitiesImpl (context: Context) : GetAllShopsInteractor {
+    private val weakContext = WeakReference<Context>(context)
+    private val repository: Repository = RepositoryImpl(weakContext.get() !!)
 
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
-        Log.d("getshops", "DOMAIN - ... - GetAllShopsInteractorImpl")
 
-        repository.getAllShops(success = {
+        repository.getAllActivities(success = {
             val shops: Shops = entityMapper(it)
             success.successCompletion(shops)
         }, error = {
@@ -30,12 +29,12 @@ class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
         val tempList = ArrayList<Shop>()
         list.forEach {
             val shop = Shop(it.id.toInt(),
-                            it.name,
-                            it.address,
-                            it.latitude,
-                            it.longitude,
-                            it.openingHours,
-                            it.description)
+                    it.name,
+                    it.address,
+                    it.latitude,
+                    it.longitude,
+                    it.openingHours,
+                    it.description)
             tempList.add(shop)
         }
 

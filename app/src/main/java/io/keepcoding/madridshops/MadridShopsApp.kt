@@ -16,12 +16,21 @@ class MadridShopsApp : MultiDexApplication () {
 
         //init code application wide
         Log.d("run", "Arrancamos aplicación MultiDex")
+        Log.d("getshops", "APP - Empezamos... MadridShopsApp")
+
+        /*DeleteAllShopsImpl(this).execute(success = {
+            Log.d("getshops", "success deleteAllShops")
+        }, error = {
+            Log.d("error", "success")
+
+        })*/
 
         val allShopsInteractor = GetAllShopsInteractorImpl(this)
-        allShopsInteractor.execute(
+       allShopsInteractor.execute(
+
                 success = object : SuccessCompletion<Shops> {
                     override fun successCompletion(shops: Shops) {
-                        Log.d("success", "Count: " + shops.count())
+                         Log.d("getshops", "APP - He recibido las tiendas")
                     }
                 },
                 error = object : ErrorCompletion {
@@ -29,16 +38,10 @@ class MadridShopsApp : MultiDexApplication () {
                         Log.d("error", errorMessage)
                     }
                 })
-    }
-    /*
-        DeleteAllShopsImpl(this).execute(success = {
-            Log.d("success", "success deleteAllShops")
-        }, error = {
-            Log.d("error", "success")
 
-        })
+
     }
-    */
+
 
     override fun onLowMemory() {
         super.onLowMemory()
