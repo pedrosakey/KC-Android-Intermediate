@@ -1,5 +1,7 @@
 package io.keepcoding.madridshops.activity
 
+import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -30,8 +32,20 @@ import io.keepcoding.madridshops.fragment.GMapFragment
 
 class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
 
+companion object {
 
-    lateinit var shopsDowloaded: Shops
+    val ARG_ELEMENTS = "ARG_ELEMENTS "
+
+    fun intent(context: Context,elements: Shops) : Intent{
+        val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra(ARG_ELEMENTS, elements)
+        return intent
+    }
+
+}
+
+    lateinit var elements: Shops
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +59,10 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
 
     private fun initializeActivity() {
         Log.d("getshops", "APP - Inicializamos... MainActivity")
-        val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
-        getAllShopsInteractor.execute(object: SuccessCompletion<Shops>{
-            override fun successCompletion(shops: Shops) {
-                // Initilize Maps
-             Log.d("getshops", "APP - SUCCES... Tiendas descargadas")
-                //initializeMap(shops)
-                shopsDowloaded = shops
+
+                elements = intent.getSerializableExtra(ARG_ELEMENTS) as Shops
                 if(supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) == null) {
-                    val fragment  = GMapFragment.newInstance(shops)
+                    val fragment  = GMapFragment.newInstance(elements)
                     supportFragmentManager
                             .beginTransaction()
                             .add(R.id.activity_main_map_fragment, fragment)
@@ -65,23 +74,13 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
                 //Comprobamos que no está cargado en la jerarquia
                 if(supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) == null) {
                     val fragment  = ListFragment.newInstance<Shop>()
-                    fragment.addList(shops.all().toTypedArray())
+                    fragment.addList(elements.all().toTypedArray())
                     supportFragmentManager
                             .beginTransaction()
                             .add(R.id.activity_main_list_fragment, fragment)
                             .commit()
                 }
 
-
-            }
-
-        }, object: ErrorCompletion {
-            override fun errorCompletion(errorMessage: String) {
-             Log.d("getshops", "APP - ERROR... Tiendas no descargadas")
-                Toast.makeText(baseContext,"Error,", Toast.LENGTH_LONG).show()
-            }
-
-        })
 
     }
 
@@ -104,7 +103,6 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
     }
 
     override fun onItemSelected(position: Int) {
-        Log.d("lashop", "paso la shop: " + shopsDowloaded.get(position).toString())
-        startActivity(DetailActivity.intent(this, shopsDowloaded.get(position)))
+        startActivity(DetailActivity.intent(this, elements.get(position)))
     }
 }

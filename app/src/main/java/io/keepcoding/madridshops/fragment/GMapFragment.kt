@@ -157,6 +157,14 @@ class GMapFragment : Fragment(){
                         .add(origin, destination)
                         .width(5f)
                         .color(Color.RED))
+
+                // Add mark
+
+                    gmap.addMarker(MarkerOptions()
+                            .position(LatLng(lat, long))
+                            .title(shop?.name)
+                    )
+
             }
         }
     }

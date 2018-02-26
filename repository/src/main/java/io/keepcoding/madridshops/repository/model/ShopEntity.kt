@@ -29,6 +29,8 @@ data class ShopEntity(
                  address: String) :
                 this(0, id, databaseId, name, description,latitude,longitude,img,logo,openingHours,address)
 
+
+    // Coordinates come from network with bad format
     fun fixCoordinates() : ShopEntity {
         latitude = saveSafeCoordinate(latitude)
         longitude = saveSafeCoordinate(longitude)

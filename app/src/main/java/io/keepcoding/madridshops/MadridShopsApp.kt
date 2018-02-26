@@ -1,36 +1,42 @@
 package io.keepcoding.madridshops
 
+import android.content.Context
 import android.support.multidex.MultiDexApplication
 import android.util.Log
 import io.keepcoding.madridshops.domain.interactor.ErrorCompletion
-import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllShopsInteractorFakeImpl
 import io.keepcoding.madridshops.domain.interactor.SuccessCompletion
-import io.keepcoding.madridshops.domain.interactor.deleteallshops.DeleteAllShopsImpl
 import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
+import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllActivitiesInteractorImpl
 import io.keepcoding.madridshops.domain.model.Shops
 
 
 class MadridShopsApp : MultiDexApplication () {
+
+    val context: Context = this
+
     override fun onCreate() {
         super.onCreate()
 
-        //init code application wide
-        Log.d("run", "Arrancamos aplicación MultiDex")
-        Log.d("getshops", "APP - Empezamos... MadridShopsApp")
-
-        /*DeleteAllShopsImpl(this).execute(success = {
-            Log.d("getshops", "success deleteAllShops")
-        }, error = {
-            Log.d("error", "success")
-
-        })*/
-
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
-       allShopsInteractor.execute(
+      // Descargamos al principio para trabajar desde cache
+        GetAllShopsInteractorImpl(context).execute(
 
                 success = object : SuccessCompletion<Shops> {
                     override fun successCompletion(shops: Shops) {
-                         Log.d("getshops", "APP - He recibido las tiendas")
+
+                        GetAllActivitiesInteractorImpl(context).execute(
+
+                                success = object : SuccessCompletion<Shops> {
+                                    override fun successCompletion(shops: Shops) {
+
+
+                                    }
+                                },
+                                error = object : ErrorCompletion {
+                                    override fun errorCompletion(errorMessage: String) {
+                                        Log.d("error", errorMessage)
+                                    }
+                                })
+
                     }
                 },
                 error = object : ErrorCompletion {
