@@ -6,10 +6,11 @@ import java.io.Serializable
 
 data class Shop(val id: Int,
                 val name: String,
+                val logo: String,
                 val address: String,
                 val latitude: String,
                 val longitude: String,
-                val timaTable: String,
+                val timeTable: String,
                 val description: String
 ): Serializable {
 

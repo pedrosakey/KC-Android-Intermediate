@@ -30,6 +30,7 @@ class GetAllActivitiesInteractorImpl(context: Context) : GetAllShopsInteractor {
         list.forEach {
             val shop = Shop(it.id.toInt(),
                     it.name,
+                    it.logo,
                     it.address,
                     it.latitude,
                     it.longitude,

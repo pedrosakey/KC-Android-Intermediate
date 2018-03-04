@@ -52,7 +52,6 @@ companion object {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-            Log.d("getshops", "success deleteAllShops")
             initializeActivity()
 
     }
@@ -73,7 +72,7 @@ companion object {
                //Cargamos el framento
                 //Comprobamos que no está cargado en la jerarquia
                 if(supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) == null) {
-                    val fragment  = ListFragment.newInstance<Shop>()
+                    val fragment  = ListFragment.newInstance()
                     fragment.addList(elements.all().toTypedArray())
                     supportFragmentManager
                             .beginTransaction()

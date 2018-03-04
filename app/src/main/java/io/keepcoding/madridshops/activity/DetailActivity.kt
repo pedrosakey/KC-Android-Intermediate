@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ScrollView
 import android.widget.TextView
 import io.keepcoding.madridshops.R
 import io.keepcoding.madridshops.domain.model.Shop
@@ -49,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
         val description = findViewById<TextView>(R.id.activity_detail_description)
 
         name.text = shop.name
-        timeTable.text = shop.timaTable
+        timeTable.text = shop.timeTable
         street.text = shop.address
         description.text = shop.description
     }

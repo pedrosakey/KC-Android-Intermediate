@@ -5,6 +5,9 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +15,19 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 
 import io.keepcoding.madridshops.R
+import io.keepcoding.madridshops.adapter.CellRecyclerViewAdapter
 import io.keepcoding.madridshops.domain.model.Shop
 import io.keepcoding.madridshops.domain.model.Shops
+import kotlinx.android.synthetic.main.fragment_list.*
 
-class ListFragment <T> : Fragment() {
+class ListFragment  : Fragment() {
 
-    lateinit var list : Array<T>
+    lateinit var list : Array<Shop>
     private var onItemSelectedListener: OnItemSelectedListener? = null
 
 
     companion object {
-       fun <T> newInstance() : ListFragment<T> {
+       fun  newInstance() : ListFragment {
            return ListFragment()
         }
     }
@@ -33,26 +38,39 @@ class ListFragment <T> : Fragment() {
                               savedInstanceState: Bundle?): View? {
         if (inflater != null) {
             root = inflater.inflate(R.layout.fragment_list, container, false)
-            var list = root.findViewById<ListView>(R.id.activity_main_list_fragment)
-            val adapter = ArrayAdapter<T>(
-                    activity,
-                    android.R.layout.simple_list_item_1,
-                    this.list
-            )
-            list.adapter = adapter
+
+            val recyclerView = root.findViewById<RecyclerView>(R.id.fragment_recycler_view)
+
+            // Layout manager
+            recyclerView.layoutManager = LinearLayoutManager(root.context)
+
+            // Animation
+            recyclerView.itemAnimator = DefaultItemAnimator()
+
+            // Create Adapter
+            val adapter = CellRecyclerViewAdapter(list.toList())
+
+            // Bind Adapter
+            recyclerView.adapter = adapter
 
             // Click en un item
-            list.setOnItemClickListener { _, _, position, _ ->
+
+            adapter.onClickListener = View.OnClickListener { view ->
+                val position = recyclerView.getChildAdapterPosition(view)
                 // Aviso al listener
                 onItemSelectedListener?.onItemSelected(position)
             }
+
+
+
+
 
         }
 
         return root
     }
 
-    fun addList(list: Array<T>) {
+    fun addList(list: Array<Shop>) {
         this.list = list
     }
 

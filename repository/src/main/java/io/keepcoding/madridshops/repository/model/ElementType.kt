@@ -10,7 +10,7 @@ class ElementTypeInitilizers() {
     enum class TYPE(val index: Int) {
         SHOPS(1),
         ACTIVITIES(2)
-        // Here we ca add more elements...
+        // Here we can add more elements...
 
     }
 

@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     tools:context="io.keepcoding.madridshops.fragment.ListFragment">
 
-    <ListView
-        android:id="@+id/activity_main_list_fragment"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
