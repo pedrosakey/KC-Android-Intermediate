@@ -4,8 +4,8 @@ import android.content.Context
 import io.keepcoding.madridshops.repository.db.DBHelper
 import io.keepcoding.madridshops.repository.db.build
 import io.keepcoding.madridshops.repository.db.dao.ShopDAO
-import io.keepcoding.madridshops.repository.model.ElementType
-import io.keepcoding.madridshops.repository.model.ElementTypeInitilizers
+import io.keepcoding.madridshops.repository.model.ElementTypeEntity
+import io.keepcoding.madridshops.repository.model.ElementTypeInitilizersEntity
 import io.keepcoding.madridshops.repository.model.ShopEntity
 import io.keepcoding.madridshops.repository.thread.DispatchOnMainTread
 import java.lang.ref.WeakReference
@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
 
      override fun deleteAllShops(succes: () -> Unit, error: (errorMessage: String) -> Unit) {
          Thread(Runnable {
-             var succesDeleting = ShopDAO(cacheDBHelper()).deleteAll()
+             val succesDeleting = ShopDAO(cacheDBHelper()).deleteAll()
 
              DispatchOnMainTread(Runnable {
                  if (succesDeleting) {
@@ -33,33 +33,20 @@ import java.lang.ref.WeakReference
 
      }
 //TODO: Sacar a una clausura el thread
-     override fun getAllShops(succes: (shops: List<ShopEntity>) -> Unit, error: (errorMessage: String) -> Unit) {
-         Thread(Runnable {
-             var shops = ShopDAO(cacheDBHelper()).query(ElementTypeInitilizers().SHOPS.type)
-             DispatchOnMainTread(Runnable {
-                 if (shops.count() > 0) {
-                     succes(shops)
-                 } else {
-                     error("No shops")
-                 }
-             })
+    override fun getAllPlaces(element: ElementTypeEntity, succes: (shops: List<ShopEntity>) -> Unit, error: (errorMessage: String) -> Unit) {
+    Thread(Runnable {
+        val shops = ShopDAO(cacheDBHelper()).query(element.type)
+        DispatchOnMainTread(Runnable {
+            if (shops.count() > 0) {
+                succes(shops)
+            } else {
+                error("No shops")
+            }
+        })
 
-         }).run()
-     }
+    }).run()
+}
 
-     override fun getAllActivities(succes: (shops: List<ShopEntity>) -> Unit, error: (errorMessage: String) -> Unit) {
-         Thread(Runnable {
-             var shops = ShopDAO(cacheDBHelper()).query(ElementTypeInitilizers().ACTIVITIES.type)
-             DispatchOnMainTread(Runnable {
-                 if (shops.count() > 0) {
-                     succes(shops)
-                 } else {
-                     error("No shops")
-                 }
-             })
-
-         }).run()
-     }
 
      override fun saveAllShops(shops: List<ShopEntity>, success: () -> Unit, error: (errorMessage: String) -> Unit) {
          Thread(Runnable {

@@ -5,8 +5,9 @@ import android.support.multidex.MultiDexApplication
 import android.util.Log
 import io.keepcoding.madridshops.domain.interactor.ErrorCompletion
 import io.keepcoding.madridshops.domain.interactor.SuccessCompletion
-import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
-import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllActivitiesInteractorImpl
+import io.keepcoding.madridshops.domain.interactor.getallplaces.GetAllPlacesInteractorImpl
+import io.keepcoding.madridshops.domain.model.ElementTypeInitilizers
+
 import io.keepcoding.madridshops.domain.model.Shops
 
 
@@ -18,16 +19,20 @@ class MadridShopsApp : MultiDexApplication () {
         super.onCreate()
 
       // Descargamos al principio para trabajar desde cache
-        GetAllShopsInteractorImpl(context).execute(
+
+        GetAllPlacesInteractorImpl(context).execute(
+
+                ElementTypeInitilizers().SHOPS,
 
                 success = object : SuccessCompletion<Shops> {
-                    override fun successCompletion(shops: Shops) {
+                    override fun successCompletion(e: Shops) {
 
-                        GetAllActivitiesInteractorImpl(context).execute(
+                        GetAllPlacesInteractorImpl(context).execute(
+
+                                ElementTypeInitilizers().ACTIVITIES,
 
                                 success = object : SuccessCompletion<Shops> {
-                                    override fun successCompletion(shops: Shops) {
-
+                                    override fun successCompletion(e: Shops) {
 
                                     }
                                 },

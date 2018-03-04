@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase
 import io.keepcoding.madridshops.repository.db.DAOPersistable
 import io.keepcoding.madridshops.repository.db.DBConstants
 import io.keepcoding.madridshops.repository.db.DBHelper
-import io.keepcoding.madridshops.repository.model.ElementType
 import io.keepcoding.madridshops.repository.model.ShopEntity
 
 

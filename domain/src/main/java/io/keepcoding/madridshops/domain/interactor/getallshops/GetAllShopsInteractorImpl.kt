@@ -18,12 +18,13 @@ class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
         Log.d("getshops", "DOMAIN - ... - GetAllShopsInteractorImpl")
 
-        repository.getAllShops(success = {
+       /* repository.getAllShops(success = {
             val shops: Shops = entityMapper(it)
             success.successCompletion(shops)
         }, error = {
             error(it)
         })
+        */
     }
 
     private fun entityMapper(list: List<ShopEntity>): Shops {

@@ -8,8 +8,8 @@ import android.widget.FrameLayout
 import io.keepcoding.madridshops.R
 import io.keepcoding.madridshops.domain.interactor.ErrorCompletion
 import io.keepcoding.madridshops.domain.interactor.SuccessCompletion
-import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllActivitiesInteractorImpl
-import io.keepcoding.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
+import io.keepcoding.madridshops.domain.interactor.getallplaces.GetAllPlacesInteractorImpl
+import io.keepcoding.madridshops.domain.model.ElementTypeInitilizers
 import io.keepcoding.madridshops.domain.model.Shops
 
 class WelcomeActivity : AppCompatActivity() {
@@ -24,12 +24,15 @@ class WelcomeActivity : AppCompatActivity() {
 
         shops.setOnClickListener {
 
-            GetAllShopsInteractorImpl(this).execute(
+            GetAllPlacesInteractorImpl(this).execute(
+
+                    ElementTypeInitilizers().SHOPS,
+
 
                     success = object : SuccessCompletion<Shops> {
-                        override fun successCompletion(shops: Shops) {
+                        override fun successCompletion(e: Shops) {
                            // Intent con shops
-                            startActivity(MainActivity.intent(context,shops))
+                            startActivity(MainActivity.intent(context,e))
                         }
 
                     },
@@ -45,12 +48,14 @@ class WelcomeActivity : AppCompatActivity() {
 
         activities.setOnClickListener {
 
-            GetAllActivitiesInteractorImpl(this).execute(
+            GetAllPlacesInteractorImpl(this).execute(
+
+                    ElementTypeInitilizers().ACTIVITIES,
 
                     success = object : SuccessCompletion<Shops> {
-                        override fun successCompletion(shops: Shops) {
+                        override fun successCompletion(e: Shops) {
                             // Intent con actividades
-                            startActivity(MainActivity.intent(context,shops))
+                            startActivity(MainActivity.intent(context,e))
 
 
                         }

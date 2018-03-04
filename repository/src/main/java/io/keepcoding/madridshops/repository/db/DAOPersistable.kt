@@ -1,8 +1,6 @@
 package io.keepcoding.madridshops.repository.db
 
 import android.database.Cursor
-import io.keepcoding.madridshops.repository.model.ElementType
-import io.keepcoding.madridshops.repository.model.ShopEntity
 
 internal interface DAOReadOperation<T> {
     fun query(id: Long): T

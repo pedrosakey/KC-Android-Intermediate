@@ -1,9 +1,24 @@
-package io.keepcoding.madridshops.repository.model
+package io.keepcoding.madridshops.domain.model
 
 import io.keepcoding.repository.BuildConfig
 
 
-data class ElementType (val type: Int, val url: String)
+data class ElementType(val type: Int, val url: String) {
+    override fun equals(other: Any?): Boolean {
+        var result = false
+        if(other is ElementType){
+            result = type === other.type
+
+        }
+        return  result
+    }
+
+    override fun hashCode(): Int {
+        var result = type
+        result = 31 * result + url.hashCode()
+        return result
+    }
+}
 
 class ElementTypeInitilizers() {
 
