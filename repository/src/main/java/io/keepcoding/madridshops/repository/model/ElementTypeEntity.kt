@@ -1,5 +1,4 @@
 package io.keepcoding.madridshops.repository.model
-
 import io.keepcoding.repository.BuildConfig
 
 

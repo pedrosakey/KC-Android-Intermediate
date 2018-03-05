@@ -11,14 +11,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-
 import io.keepcoding.madridshops.R
 import io.keepcoding.madridshops.adapter.CellRecyclerViewAdapter
 import io.keepcoding.madridshops.domain.model.Shop
-import io.keepcoding.madridshops.domain.model.Shops
-import kotlinx.android.synthetic.main.fragment_list.*
+
 
 class ListFragment  : Fragment() {
 

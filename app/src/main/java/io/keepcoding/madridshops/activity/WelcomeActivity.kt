@@ -28,7 +28,6 @@ class WelcomeActivity : AppCompatActivity() {
 
                     ElementTypeInitilizers().SHOPS,
 
-
                     success = object : SuccessCompletion<Shops> {
                         override fun successCompletion(e: Shops) {
                            // Intent con shops
@@ -56,7 +55,6 @@ class WelcomeActivity : AppCompatActivity() {
                         override fun successCompletion(e: Shops) {
                             // Intent con actividades
                             startActivity(MainActivity.intent(context,e))
-
 
                         }
                     },
