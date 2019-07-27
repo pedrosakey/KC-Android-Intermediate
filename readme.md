@@ -1,6 +1,9 @@
 ## MadridShops
 
+![version](https://img.shields.io/badge/kotlin-Android-green.svg?maxAge=2592000)
+
 Get Shops and Activities in Madrid.
+**Update** This API is no longer available
 
 ## Getting Started
 Clone with HTTPS 
